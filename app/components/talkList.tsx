@@ -1,9 +1,9 @@
-import { Talk } from "@prisma/client";
 import { TalkCard } from "~/components/talk-card";
 import { Link } from "@remix-run/react";
+import { PrettyTalk } from "~/client-models/pretty-talk";
 
 export interface TalkListProps {
-  talks: Talk[];
+  talks: PrettyTalk[];
 }
 
 export function TalkList({ talks }: TalkListProps) {

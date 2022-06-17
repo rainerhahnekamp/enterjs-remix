@@ -1,14 +1,13 @@
-import { Talk } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { format, parseJSON } from "date-fns";
 import { Link } from "@remix-run/react";
+import { PrettyTalk } from "~/client-models/pretty-talk";
 
 export interface TalkCardProps {
-  talk: Talk;
+  talk: PrettyTalk;
 }
 
 export function TalkCard({ talk }: TalkCardProps) {
@@ -19,7 +18,7 @@ export function TalkCard({ talk }: TalkCardProps) {
         <div className="py-2">
           <p className="py-1 text-gray-900">
             <FontAwesomeIcon icon={faLocationDot} className="pr-2 text-2xl" />
-            {format(parseJSON(talk.date), "dd.MM.y")}
+            {talk.prettyDate}
           </p>
 
           <p className="py-1 text-gray-900">
