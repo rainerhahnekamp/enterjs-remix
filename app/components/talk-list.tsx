@@ -1,9 +1,9 @@
 import { TalkCard } from "~/components/talk-card";
 import { Link } from "@remix-run/react";
-import { PrettyTalks } from "~/client-models/pretty-talks";
+import { Talks } from "~/client-models/talks";
 
 export interface TalkListProps {
-  prettyTalks: PrettyTalks;
+  prettyTalks: Talks;
 }
 
 export function TalkList({ prettyTalks: { upcoming, past } }: TalkListProps) {

@@ -1,50 +1,19 @@
-import { LoaderFunction } from "@remix-run/node";
-import { Talk } from "@prisma/client";
-import { PrettyTalk } from "~/client-models/pretty-talk";
-import { format, isAfter, isSameDay, parseJSON } from "date-fns";
-import { sortBy } from "lodash";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { TalkList } from "~/components/talk-list";
-import { findTalks } from "~/models/talk.server";
+import { findTalks } from "~/server-models";
+import { toTalks } from "~/mapping/to-talks";
+import type { Talks } from "~/client-models";
 
-function toPrettyTalk(talk: Talk) {
-  const now = new Date();
-  const date = parseJSON(talk.date);
-
-  return {
-    ...talk,
-    date,
-    prettyDate: format(date, "dd.MM.y"),
-    isUpcoming: isSameDay(date, now) || isAfter(date, now),
-  };
-}
-
-function toTalkList(talks: Talk[]) {
-  const past: PrettyTalk[] = [];
-  const upcoming: PrettyTalk[] = [];
-
-  for (const talk of talks) {
-    const prettyTalk: PrettyTalk = toPrettyTalk(talk);
-
-    if (prettyTalk.isUpcoming) {
-      upcoming.push(prettyTalk);
-    } else {
-      past.push(prettyTalk);
-    }
-  }
-
-  return {
-    past: sortBy(past, "date").reverse(),
-    upcoming: sortBy(upcoming, "date"),
-  };
-}
+export type LoaderData = Talks;
 
 export const loader: LoaderFunction = async () => {
   const talks = await findTalks();
-  return toTalkList(talks);
+  return json<LoaderData>(toTalks(talks));
 };
 
 export default function TalksIndex() {
-  const talkList = useLoaderData();
+  const talkList = useLoaderData<LoaderData>();
   return <TalkList prettyTalks={talkList}></TalkList>;
 }

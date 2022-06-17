@@ -21,7 +21,7 @@ import primeIcons from "primeicons/primeicons.css";
 import { getUser } from "./session.server";
 import { Header } from "~/components/header";
 import type { User } from "@prisma/client";
-import { findTalks } from "~/models/talk.server";
+import { findTalks } from "~/server-models/talk.server";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },

@@ -1,8 +1,9 @@
-import { LoaderFunction } from "@remix-run/node";
-import { findTalks, Talk } from "~/models/talk.server";
+import type { LoaderFunction } from "@remix-run/node";
+import type { DbTalk } from "~/server-models";
+import { findTalks } from "~/server-models";
 
 interface LoaderData {
-  talks: Talk[];
+  talks: DbTalk[];
 }
 export const loader: LoaderFunction = async (): Promise<LoaderData> => {
   return { talks: await findTalks() };

@@ -1,13 +1,13 @@
 import { json, LoaderFunction } from "@remix-run/node";
-import { findTalkById } from "~/models/talk.server";
-import { PrettyTalk } from "~/client-models/pretty-talk";
+import { findTalkById } from "~/server-models/talk.server";
+import { Talk } from "~/client-models/talk";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { toPrettyTalk } from "~/mapping/to-pretty-talk";
-import { findCommentsByTalkId } from "~/models/comment.server";
+import { toTalk } from "~/mapping/to-talk";
+import { findCommentsByTalkId } from "~/server-models/comment.server";
 import { Badge } from "primereact/badge";
 
 interface LoaderData {
-  talk: PrettyTalk;
+  talk: Talk;
   commentsCount: number;
 }
 
@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Error("invalid talk");
   }
 
-  const talk: PrettyTalk = toPrettyTalk(dbTalk);
+  const talk: Talk = toTalk(dbTalk);
 
   return json<LoaderData>({
     talk,

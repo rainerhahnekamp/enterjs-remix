@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { TalkList } from "~/components/talk-list";
 import { Talk } from "@prisma/client";
 import { format, isAfter, isSameDay, parseJSON } from "date-fns";
-import { PrettyTalk } from "~/client-models/pretty-talk";
+import { Talk } from "~/client-models/talk";
 import { sortBy } from "lodash";
 
 export const TalkListContainer = () => {
   const [talks, setPrettyTalks] = useState<{
-    past: PrettyTalk[];
-    upcoming: PrettyTalk[];
+    past: Talk[];
+    upcoming: Talk[];
   }>({ past: [], upcoming: [] });
 
   useEffect(() => {
@@ -16,12 +16,12 @@ export const TalkListContainer = () => {
       .then((res) => res.json())
       .then((data: { talks: Talk[] }) => {
         const now = new Date();
-        const past: PrettyTalk[] = [];
-        const upcoming: PrettyTalk[] = [];
+        const past: Talk[] = [];
+        const upcoming: Talk[] = [];
 
         for (const talk of data.talks) {
           const date = parseJSON(talk.date);
-          const prettyTalk: PrettyTalk = {
+          const prettyTalk: Talk = {
             ...talk,
             date,
             prettyDate: format(date, "dd.MM.y"),

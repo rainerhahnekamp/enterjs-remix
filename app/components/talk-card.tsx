@@ -4,19 +4,17 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "@remix-run/react";
-import { PrettyTalk } from "~/client-models/pretty-talk";
+import { Talk } from "~/client-models/talk";
+import { Card } from "primereact/card";
 
 export interface TalkCardProps {
-  talk: PrettyTalk;
+  talk: Talk;
 }
 
 export function TalkCard({ talk }: TalkCardProps) {
   return (
     <div className="overflow-hidden rounded shadow-lg">
-      <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">
-          <Link to={"./" + talk.id}>{talk.name}</Link>
-        </div>
+      <Card title={talk.name}>
         <div className="py-2">
           <p className="py-1 text-gray-900">
             <FontAwesomeIcon icon={faLocationDot} className="pr-2 text-2xl" />
@@ -28,13 +26,13 @@ export function TalkCard({ talk }: TalkCardProps) {
             {talk.event}
           </p>
         </div>
-        <p className="text-base text-gray-700">{talk.abstract}</p>
+        {talk.abstract}
         <div className="flex justify-center gap-8 p-4">
           <Link className="p-button" to={"" + talk.id}>
             More Info
           </Link>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

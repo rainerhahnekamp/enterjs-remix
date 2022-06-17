@@ -1,14 +1,15 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import { addComment, findCommentsByTalkId } from "~/models/comment.server";
+
 import { formatDistance } from "date-fns";
-import type { Comment } from "~/client-models/comment";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Card } from "primereact/card";
 import { sortBy } from "lodash";
+import { addComment, findCommentsByTalkId } from "~/server-models";
+import type { Comment } from "~/client-models";
 
 export interface LoaderData {
   comments: Comment[];

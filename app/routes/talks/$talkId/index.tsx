@@ -1,11 +1,11 @@
-import { PrettyTalk } from "~/client-models/pretty-talk";
+import { Talk } from "~/client-models";
 import { json, LoaderFunction } from "@remix-run/node";
-import { findTalkById } from "~/models/talk.server";
-import { toPrettyTalk } from "~/mapping/to-pretty-talk";
+import { toTalk } from "~/mapping/to-talk";
 import { useLoaderData } from "@remix-run/react";
 import { Fieldset } from "primereact/fieldset";
+import { findTalkById } from "~/server-models";
 
-type LoaderData = PrettyTalk;
+type LoaderData = Talk;
 
 export const loader: LoaderFunction = async ({ params }) => {
   const talkId = +(params.talkId || "0");
@@ -14,27 +14,27 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Error("invalid talkid in route");
   }
 
-  const talk = await findTalkById(talkId);
-  if (talk === null) {
+  const dbTalk = await findTalkById(talkId);
+  if (dbTalk === null) {
     throw new Error("invalid talk");
   }
-  const prettyTalk: PrettyTalk = toPrettyTalk(talk);
+  const talk: Talk = toTalk(dbTalk);
 
-  return json<LoaderData>(prettyTalk);
+  return json<LoaderData>(talk);
 };
 
 export default function TalkIndex() {
-  const prettyTalk = useLoaderData<LoaderData>();
+  const talk = useLoaderData<LoaderData>();
   return (
     <div>
       <Fieldset className="mt-4 p-4" legend="Abstract">
-        <p>{prettyTalk.abstract}</p>
+        <p>{talk.abstract}</p>
       </Fieldset>
       <Fieldset className="mt-4 p-4" legend="Location">
-        <p>{prettyTalk.event}</p>
+        <p>{talk.event}</p>
       </Fieldset>
       <Fieldset className="mt-4 p-4" legend="Date">
-        <p>{prettyTalk.prettyDate}</p>
+        <p>{talk.prettyDate}</p>
       </Fieldset>
     </div>
   );
