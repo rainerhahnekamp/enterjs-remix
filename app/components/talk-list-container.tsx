@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { TalkList } from "~/components/talk-list";
-import { Talk } from "@prisma/client";
 import { format, isAfter, isSameDay, parseJSON } from "date-fns";
-import { Talk } from "~/client-models/talk";
+import { Talk } from "~/client-models";
 import { sortBy } from "lodash";
 
 export const TalkListContainer = () => {

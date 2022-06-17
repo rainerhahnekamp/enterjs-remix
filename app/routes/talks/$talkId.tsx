@@ -1,38 +1,10 @@
-import { json, LoaderFunction } from "@remix-run/node";
-import { findTalkById } from "~/server-models/talk.server";
-import { Talk } from "~/client-models/talk";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { toTalk } from "~/mapping/to-talk";
-import { findCommentsByTalkId } from "~/server-models/comment.server";
+import { dummyTalk } from "~/client-models/talk";
+import { Link, Outlet } from "@remix-run/react";
 import { Badge } from "primereact/badge";
 
-interface LoaderData {
-  talk: Talk;
-  commentsCount: number;
-}
-
-export const loader: LoaderFunction = async ({ params }) => {
-  const talkId = +(params.talkId || "0");
-
-  if (talkId === 0) {
-    throw new Error("invalid talkid in route");
-  }
-
-  const dbTalk = await findTalkById(talkId);
-  if (dbTalk === null) {
-    throw new Error("invalid talk");
-  }
-
-  const talk: Talk = toTalk(dbTalk);
-
-  return json<LoaderData>({
-    talk,
-    commentsCount: (await findCommentsByTalkId(talkId)).length,
-  });
-};
-
 export default function TalkDetail() {
-  const { talk, commentsCount } = useLoaderData<LoaderData>();
+  const talk = dummyTalk();
+  const commentsCount = 1;
   return (
     <div>
       <h2 className="text-2xl font-bold">{talk.name}</h2>
