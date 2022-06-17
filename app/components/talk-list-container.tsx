@@ -12,7 +12,7 @@ export const TalkListContainer = () => {
   }>({ past: [], upcoming: [] });
 
   useEffect(() => {
-    fetch("/api/talks")
+    fetch("api/talks")
       .then((res) => res.json())
       .then((data: { talks: Talk[] }) => {
         const now = new Date();
