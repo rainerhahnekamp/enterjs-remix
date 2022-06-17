@@ -1,8 +1,13 @@
 import { Link } from "@remix-run/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { Badge } from "primereact/badge";
 
-export const Header = () => (
+export interface HeaderProps {
+  talksCount: number;
+}
+
+export const Header = ({ talksCount }: HeaderProps) => (
   <nav className="bg-gray-800">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex h-16 items-center justify-between">
@@ -20,7 +25,8 @@ export const Header = () => (
                 className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                 aria-current="page"
               >
-                Talks
+                <span className="pr-2">Talks</span>
+                <Badge value={talksCount}></Badge>
               </Link>
 
               <Link

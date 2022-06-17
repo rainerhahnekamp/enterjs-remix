@@ -5,20 +5,26 @@ import { format, isAfter, isSameDay, parseJSON } from "date-fns";
 import { sortBy } from "lodash";
 import { useLoaderData } from "@remix-run/react";
 import { TalkList } from "~/components/talk-list";
+import { findTalks } from "~/models/talk.server";
 
-function toTalkList(data: { talks: Talk[] }) {
+function toPrettyTalk(talk: Talk) {
   const now = new Date();
+  const date = parseJSON(talk.date);
+
+  return {
+    ...talk,
+    date,
+    prettyDate: format(date, "dd.MM.y"),
+    isUpcoming: isSameDay(date, now) || isAfter(date, now),
+  };
+}
+
+function toTalkList(talks: Talk[]) {
   const past: PrettyTalk[] = [];
   const upcoming: PrettyTalk[] = [];
 
-  for (const talk of data.talks) {
-    const date = parseJSON(talk.date);
-    const prettyTalk: PrettyTalk = {
-      ...talk,
-      date,
-      prettyDate: format(date, "dd.MM.y"),
-      isUpcoming: isSameDay(date, now) || isAfter(date, now),
-    };
+  for (const talk of talks) {
+    const prettyTalk: PrettyTalk = toPrettyTalk(talk);
 
     if (prettyTalk.isUpcoming) {
       upcoming.push(prettyTalk);
@@ -34,12 +40,11 @@ function toTalkList(data: { talks: Talk[] }) {
 }
 
 export const loader: LoaderFunction = async () => {
-  return fetch("http://localhost:3000/api/talks")
-    .then((res) => res.json())
-    .then(toTalkList);
+  const talks = await findTalks();
+  return toTalkList(talks);
 };
 
 export default function TalksIndex() {
   const talkList = useLoaderData();
-  return <TalkList talks={talkList}></TalkList>;
+  return <TalkList prettyTalks={talkList}></TalkList>;
 }

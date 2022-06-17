@@ -30,11 +30,8 @@ export function TalkCard({ talk }: TalkCardProps) {
         </div>
         <p className="text-base text-gray-700">{talk.abstract}</p>
         <div className="flex justify-center gap-8 p-4">
-          <Link className="p-button" to={talk.id + "/edit"}>
-            Edit
-          </Link>
-          <Link className="p-button" to={talk.id + "/comment"}>
-            Add Comment
+          <Link className="p-button" to={"" + talk.id}>
+            More Info
           </Link>
         </div>
       </div>

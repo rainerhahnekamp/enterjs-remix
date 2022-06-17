@@ -16,6 +16,7 @@ model User {
 
   password Password?
   talks Talk[]
+  comments Comment[]
 }
 
 model Password {
@@ -41,4 +42,20 @@ model Talk {
 
   slidesUrl String?
   recordingUrl String?
+
+  comments Comment[]
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  content String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  talk Talk @relation(fields: [talkId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  talkId Int
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String?
 }
