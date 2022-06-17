@@ -6,7 +6,7 @@ import { PrettyTalk } from "~/client-models/pretty-talk";
 import { sortBy } from "lodash";
 
 export const TalkListContainer = () => {
-  const [talks, setTalks] = useState<{
+  const [talks, setPrettyTalks] = useState<{
     past: PrettyTalk[];
     upcoming: PrettyTalk[];
   }>({ past: [], upcoming: [] });
@@ -40,8 +40,8 @@ export const TalkListContainer = () => {
           upcoming: sortBy(upcoming, "date"),
         };
       })
-      .then(setTalks);
+      .then(setPrettyTalks);
   }, []);
 
-  return <TalkList talks={talks}></TalkList>;
+  return <TalkList prettyTalks={talks}></TalkList>;
 };
