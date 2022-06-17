@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TalkList } from "~/components/talkList";
+import { TalkList } from "~/components/talk-list";
 import { Talk } from "@prisma/client";
 import { format, parseJSON } from "date-fns";
 import { PrettyTalk } from "~/client-models/pretty-talk";
