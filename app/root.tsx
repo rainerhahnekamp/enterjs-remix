@@ -8,6 +8,7 @@ import {
   Links,
   LiveReload,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
@@ -18,7 +19,6 @@ import primeCore from "primereact/resources/primereact.min.css";
 import primeIcons from "primeicons/primeicons.css";
 import { getUser } from "./session.server";
 import { Header } from "~/components/header";
-import { TalkListContainer } from "~/components/talk-list-container";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
@@ -60,7 +60,7 @@ export default function App() {
           <Header />
           <main>
             <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-              <TalkListContainer></TalkListContainer>
+              <Outlet />
             </div>
           </main>
         </div>
