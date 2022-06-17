@@ -6,7 +6,7 @@ export const TalkListContainer = () => {
   const [talks, setTalks] = useState<Talk[]>([]);
 
   useEffect(() => {
-    fetch("/talks")
+    fetch("/api/talks")
       .then((res) => res.json())
       .then((data: { talks: Talk[] }) => data.talks)
       .then(setTalks);
