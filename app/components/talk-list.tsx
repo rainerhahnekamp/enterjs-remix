@@ -9,7 +9,7 @@ export interface TalkListProps {
 export function TalkList({ talks }: TalkListProps) {
   return (
     <div>
-      <h2 className="py-6 text-3xl font-bold">Past and future talks</h2>
+      <h2 className="py-6 text-3xl font-bold">Past and upcoming talks</h2>
       <Link className="p-button" to="./add">
         Add new Talk
       </Link>
