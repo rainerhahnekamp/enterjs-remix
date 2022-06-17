@@ -14,7 +14,9 @@ export function TalkCard({ talk }: TalkCardProps) {
   return (
     <div className="overflow-hidden rounded shadow-lg">
       <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">{talk.name}</div>
+        <div className="mb-2 text-xl font-bold">
+          <Link to={"./" + talk.id}>{talk.name}</Link>
+        </div>
         <div className="py-2">
           <p className="py-1 text-gray-900">
             <FontAwesomeIcon icon={faLocationDot} className="pr-2 text-2xl" />
