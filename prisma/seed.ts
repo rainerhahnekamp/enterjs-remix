@@ -65,16 +65,6 @@ In dem Vortrag erwartet Teilnehmer:innen ein Rundumblick auf Stärken und Schwä
       event: "enterJS",
     },
     {
-      name: "Remix: Yet Another Framework oder mehr?",
-      abstract: `Wer den sozialen Netzwerken folgt, kommt in letzter Zeit um Remix nicht herum. Wie Next.js ist Remix ein React-basiertes Full-Stack-Framework. Ähnlich wie bei den React Server Components werden ein Teil des Renderings und die Kommunikation mit einer API oder Datenbank bereits am Server durchgeführt.
-
-Wie das genau funktioniert und was Remix dadurch anderen Frameworks voraus hat, wird dieser Vortrag mit Live-Coding beleuchten.`,
-      userId: user.id,
-      language: "de",
-      date: new Date(2022, 5, 22),
-      event: "enterJS",
-    },
-    {
       name: "Future of Frontend Development",
       abstract: `React, Vue & Angular have positioned themselves as the "Big 3" frameworks for frontend development for the last couple of years. They still add new features, but not at that rate compared to the early days. So did we already reach the peak?
 On the contrary! Svelte's compiler approach, React's Server Components or esbuild's performance (via not using JavaScript) are groundbreaking changes that will shape the next generation. If the "Big 3" will adopt or vanish, is another topic...
@@ -113,6 +103,22 @@ The biggest change is the consolidation of all multicast operators into one shar
       event: "Angular Community Meetup Europe",
     },
   ]);
+
+  const remixTalk = {
+    name: "Remix: Yet Another Framework oder mehr?",
+    abstract: `Wer den sozialen Netzwerken folgt, kommt in letzter Zeit um Remix nicht herum. Wie Next.js ist Remix ein React-basiertes Full-Stack-Framework. Ähnlich wie bei den React Server Components werden ein Teil des Renderings und die Kommunikation mit einer API oder Datenbank bereits am Server durchgeführt.
+
+Wie das genau funktioniert und was Remix dadurch anderen Frameworks voraus hat, wird dieser Vortrag mit Live-Coding beleuchten.`,
+    userId: user.id,
+    language: "de",
+    date: new Date(2022, 5, 22),
+    event: "enterJS",
+  };
+  const { id } = await prisma.talk.create({ data: remixTalk });
+
+  await prisma.comment.create({
+    data: { talkId: id, content: "Ist da jemand???" },
+  });
 
   console.log(`Database has been seeded. 🌱`);
 }
