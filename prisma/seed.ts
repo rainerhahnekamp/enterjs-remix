@@ -30,7 +30,7 @@ async function seed() {
     }
   }
 
-  createTalks([
+  await createTalks([
     {
       name: "Implementing the Observable",
       abstract: `If you want to fully understand something, you have to write it on your own. 

@@ -11,8 +11,8 @@ import tailwindStylesheetUrl from "./styles/tailwind.css";
 import primeTheme from "primereact/resources/themes/lara-light-indigo/theme.css";
 import primeCore from "primereact/resources/primereact.min.css";
 import primeIcons from "primeicons/primeicons.css";
-import { Header } from "~/components/header";
-import { TalkListContainer } from "~/components/talk-list-container";
+import { Header } from "~/components/Header";
+import { TalkListContainer } from "~/components/TalkListContainer";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },

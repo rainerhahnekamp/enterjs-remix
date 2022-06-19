@@ -1,4 +1,4 @@
-import { TalkCard } from "~/components/talk-card";
+import { TalkCard } from "~/components/TalkCard";
 import { Link } from "@remix-run/react";
 import { Talks } from "~/client-models/talks";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TalkList } from "~/components/talk-list";
+import { TalkList } from "~/components/TalkList";
 import { format, isAfter, isSameDay, parseJSON } from "date-fns";
 import { Talk } from "~/client-models";
 import { sortBy } from "lodash";
